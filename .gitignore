@@ -1,0 +1,14 @@
+# logs
+*.log
+
+# zip
+*.zip
+
+# Archive
+old/*
+
+# Sys files
+*.DS_Store
+
+
+
