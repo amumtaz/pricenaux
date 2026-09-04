@@ -119,7 +119,7 @@ button,input {
   letter-spacing:.28em;
   text-transform:uppercase;
   font-weight:800;
-  color:rgba(79,70,229,.72)
+  color:var(--indigo-600)
 }
 .text-gradient {
   background:linear-gradient(90deg,var(--purple-600),var(--indigo-500),var(--cyan-400));
@@ -177,7 +177,7 @@ button,input {
 }
 .small {
   font-size:.92rem;
-  color:var(--slate-500)
+  color:var(--slate-600)
 }
 .h1 {
   font-size:clamp(2rem,4vw,4.5rem);
@@ -662,7 +662,7 @@ button,input {
   font-size:.9rem;
   letter-spacing:.28em;
   text-transform:uppercase;
-  color:#94a3b8
+  color:var(--slate-600)
 }
 .callout {
   border:1px solid rgba(139,92,246,.24);
@@ -1111,7 +1111,7 @@ button,input {
 }
 .legal-note {
   font-size:.8rem;
-  color:var(--slate-400)
+  color:var(--slate-600)
 }
 
 /* SECTION 20 - TABLET RESPONSIVE RULES */
