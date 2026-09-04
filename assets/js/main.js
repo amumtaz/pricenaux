@@ -28,6 +28,30 @@
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){setMobileMenu(false);toggle.focus();}});
   }
   document.querySelectorAll('.faq-question').forEach(btn=>{btn.addEventListener('click',()=>{const item=btn.closest('.faq-item');const open=item.classList.toggle('open');btn.setAttribute('aria-expanded',String(open));});});
+
+  // Track entry into the Pricenaux demo-booking funnel.
+  document.addEventListener('click',e=>{
+    const link=e.target.closest('a[href]');
+    if(!link)return;
+
+    let destination;
+    try{
+      destination=new URL(link.href,window.location.href);
+    }catch{
+      return;
+    }
+
+    if(destination.origin!==window.location.origin)return;
+    if(!destination.pathname.endsWith('/book-demo.html'))return;
+
+    if(typeof window.gtag==='function'){
+      window.gtag('event','book_demo_click',{
+        link_url:destination.href,
+        link_text:(link.textContent||'Book a Demo').trim()
+      });
+    }
+  });
+
   document.querySelectorAll('[data-pricing-card]').forEach(card=>{const tabs=card.querySelectorAll('.billing-tab');const priceEl=card.querySelector('[data-price]');const noteEl=card.querySelector('[data-note]');const badgeEl=card.querySelector('[data-annual-badge]');tabs.forEach(tab=>{tab.addEventListener('click',()=>{tabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');priceEl.textContent=tab.dataset.price;noteEl.textContent=tab.dataset.note||'';if(badgeEl){badgeEl.classList.toggle('is-active',tab.dataset.cycle==='annual');}});});});
 })();
 function nlSubmit(formIdSuffix=''){
