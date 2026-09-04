@@ -324,8 +324,23 @@
 </div>
 <a aria-label="Visit MaRS Discovery District" class="mars-support-card" href="https://www.marsdd.com/" rel="noopener noreferrer" target="_blank">
 <picture>
-<source srcset="images/pricenaux-supported-by-mars-discovery-district.webp" type="image/webp"/>
-<img alt="Pricenaux supported by MaRS Discovery District" height="627" loading="lazy" src="images/pricenaux-supported-by-mars-discovery-district.png" width="1200"/>
+<source
+  type="image/webp"
+  srcset="
+    images/pricenaux-supported-by-mars-discovery-district-600.webp 600w,
+    images/pricenaux-supported-by-mars-discovery-district-900.webp 900w,
+    images/pricenaux-supported-by-mars-discovery-district-1200.webp 1200w
+  "
+  sizes="(max-width: 1100px) 90vw, 585px"
+/>
+<img
+  alt="Pricenaux supported by MaRS Discovery District"
+  height="627"
+  loading="lazy"
+  decoding="async"
+  src="images/pricenaux-supported-by-mars-discovery-district.png"
+  width="1200"
+/>
 </picture>
 </a>
 </div>
