@@ -1349,3 +1349,64 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .nav a:focus-visible, .dropdown-btn:focus-visible, .mobile-menu a:focus-visible, .mobile-menu summary:focus-visible {
   border-radius:8px;
 }
+/* Product Market Health - Connected Intelligence */
+.health-flow {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.health-flow .flow-step {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 150px;
+  padding: 24px 24px;
+  border-radius: 24px; /* rounded rectangle instead of pill */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.health-flow .flow-step strong,
+.health-flow .flow-step span,
+.health-flow .flow-step p {
+  text-align: center;
+}
+
+.health-flow .flow-arrow {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  min-width: 22px;
+}
+
+@media (max-width: 1200px) {
+  .health-flow {
+    flex-wrap: wrap;
+  }
+
+  .health-flow .flow-step {
+    flex: 1 1 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .health-flow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .health-flow .flow-arrow {
+    width: 100%;
+    min-width: 0;
+    transform: rotate(90deg);
+  }
+}
