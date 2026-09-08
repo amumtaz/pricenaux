@@ -29,27 +29,66 @@
   }
   document.querySelectorAll('.faq-question').forEach(btn=>{btn.addEventListener('click',()=>{const item=btn.closest('.faq-item');const open=item.classList.toggle('open');btn.setAttribute('aria-expanded',String(open));});});
 
-  // Track entry into the Pricenaux demo-booking funnel.
-  document.addEventListener('click',e=>{
-    const link=e.target.closest('a[href]');
+  // Track high-intent Pricenaux marketing funnel actions.
+  document.addEventListener('click',(event)=>{
+    const link=event.target.closest('a[href]');
     if(!link)return;
 
     let destination;
+
     try{
       destination=new URL(link.href,window.location.href);
     }catch{
       return;
     }
 
-    if(destination.origin!==window.location.origin)return;
-    if(!destination.pathname.endsWith('/book-demo.html'))return;
+    const linkText=(link.textContent||'')
+      .replace(/\s+/g,' ')
+      .trim();
 
-    if(typeof window.gtag==='function'){
-      window.gtag('event','book_demo_click',{
-        link_url:destination.href,
-        link_text:(link.textContent||'Book a Demo').trim()
-      });
+    const sourcePage=window.location.pathname;
+    const cleanUrl=destination.origin+destination.pathname;
+
+    let eventName='';
+
+    // Demo funnel entry on the marketing site.
+    if(
+      destination.origin===window.location.origin &&
+      destination.pathname.endsWith('/book-demo.html')
+    ){
+      eventName='book_demo_click';
     }
+
+    // High-intent transitions from the marketing site into the Pricenaux app.
+    else if(destination.hostname==='app.pricenaux.com'){
+      const appPath=destination.pathname.replace(/\/+$/,'')||'/';
+
+      if(appPath==='/'){
+        eventName='start_free_click';
+      }
+      else if(appPath==='/pricing'){
+        eventName='pricing_page_click';
+      }
+      else if(appPath==='/audit'){
+        eventName='pricing_audit_start';
+      }
+      else if(appPath==='/login'){
+        eventName='sign_in_click';
+      }
+    }
+
+    if(
+      !eventName ||
+      typeof window.gtag!=='function'
+    ){
+      return;
+    }
+
+    window.gtag('event',eventName,{
+      link_url:cleanUrl,
+      link_text:linkText,
+      source_page:sourcePage
+    });
   });
 
   document.querySelectorAll('[data-pricing-card]').forEach(card=>{const tabs=card.querySelectorAll('.billing-tab');const priceEl=card.querySelector('[data-price]');const noteEl=card.querySelector('[data-note]');const badgeEl=card.querySelector('[data-annual-badge]');tabs.forEach(tab=>{tab.addEventListener('click',()=>{tabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');priceEl.textContent=tab.dataset.price;noteEl.textContent=tab.dataset.note||'';if(badgeEl){badgeEl.classList.toggle('is-active',tab.dataset.cycle==='annual');}});});});
